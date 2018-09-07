@@ -1,0 +1,45 @@
+#Random Scatter Plot
+
+import numpy as np                      
+import matplotlib.pyplot as plt
+
+N = 10                              #number of dots
+x = np.random.rand(N)               #Creates an array and populate it with random samples from a uniform distribution over [0,1)
+y = np.random.rand(N)               #Creates an array and populate it with random samples from a uniform distribution over [0,1)
+colors = np.random.rand(N)          #Random colors assigned 
+
+plt.scatter(x, y, c = colors)       #Assigns x and y in a scatter plot
+plt.show()                          #Show scatter plot
+
+
+---------------------------------------------------------------
+#Stern-Gerlach
+
+from __future__ import division
+from pylab import *
+from numpy import *
+import random
+import matplotlib.pyplot as plt
+
+#CONSTANTS
+N = 10**6                               #Number of Particles
+i = 0                                   #Variable 
+sg_list = []                            #List for SG device 
+diff_list = []                          #list of the difference between aligned and anti-aligned particles
+
+while i < N:                            #While loop to keep the program running
+    i = i + 100                         #Parameter to keep while loop true 
+    sg = random.randint(0,1)            #Assign sg random int between 0 and 1 
+    sg_list.append(sg)                  #Plug the random int to the back end of the list
+    sg0 = sg_list.count(0)              #Counts current number of sg0 (aligned) in sg_list which are 0
+    sg1 = sg_list.count(1)              #Counts current number of sg1 (aligned) in sg_list which are 1
+    diff = abs(sg1 - sg0)               #Assign diff the absolute value difference of sg1 and sg0
+    diff_list.append(diff)              #Plug the random int to the back end of the list
+
+x = linspace(0,10**6,10**4)             #Make a x axis between 0 to 10e6 with 10e4 values 
+plot(x,diff_list)                       #Plot x axis as 10e6 and y as difference between aligned and anti-aligned
+xlabel('Number of Particles')           #X axis label
+ylabel('Difference of Aligned and Anti-Aligned Particles')  #Y axis label
+show()                                  #Show mess
+
+#Referenced Sam Silva
