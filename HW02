@@ -1,14 +1,112 @@
-1.
+from__ future__ import division 
+import pylab *
+import math *
+import numpy *
+import scipy *
+import random
+import matplotlib.pyplot as plt
 
-2.
+#Constants
+d = 1                                           #Distance of one step
+N = 20                                          #Total number of steps
+direction = [0] * N                             #Direction
 
-3.
+#Loop - One dimensional random walk
+def Walk(n):                                    #Number of times person did walk
+    j = 0                                       #Initialize j 
+    Pos_list = []                               #List of steps
+    while j <= n:                               #While loop continues till j is less than or equal to n
+        Pos = 0                                 #Initialize position at 0
+        for i in range(N):                      
+            x = randint(0, 2)
+            if x == 0:
+                x = x - 1
+            direction[i] = x
+            Pos = Pos + d * direction[i]
+        Pos_list.append(Pos)
+        j = j + 1
+    return Pos_list
 
-4.
+#List of walk final positions
+W = Walk(2000)                             
 
-5.
+#Counting x
+x = linspace(-N, N, 21)
+x_count = []                                    #List to count x
+for i in range(N + 1):                          
+    c = W.count(2 * i - 20)                     
+    x_count.append(c)                           #Appends the count to x_count 
 
-6.
 
-7.
-Assumption 50% female 50% non-female
+#Finding x^2
+n = int(N / 2 + 1)
+x2 = [0] * n
+for i in range(n):
+    x2[i] = (2 * i) ** 2
+
+# Counting x^2
+x2_count = []                                   #List to count x^2
+for i in range(N + 1):
+    W[i] = W[i] ** 2
+for j in range(n):
+    c = W.count((2 * j) ** 2)
+    x2_count.append(c)                          #Appends the count to x2_count
+
+#Plot x 
+figure()
+plot(x, x_count)
+title('Probability Distribution of 20 Step Random  Walk')
+xlabel('Distance Walked (x)')
+ylabel('Counts of x')
+show()
+
+#Plot x^2 
+figure()
+plt.scatter(x2, x2_count)
+title('Probability Distribution of x^2 of 20 Step Random Walk')
+xlabel('Distance Walked (x^2)')
+ylabel('Counts of x^2')
+show()
+
+________________________________________________________________________________________________________________________________________________________
+
+
+#2D Walk
+def Walk_2D(n):                             
+    j = 0                                    #Initialize j at 0
+    Posx_list = []                           #X Position
+    Posy_list = []                           #Y Position
+    steps_x = [0] * N                        #List for x steps
+    steps_y = [0] * N                        #List for y steps
+    while j <= n:
+        Posx = 0                             #Initialize x at 0
+        Posy = 0                             #Initialize y at 0
+        for i in range(N):
+            x = randint(0, 2)
+            y = randint(0, 2)
+            if x == 0:
+                x = x - 1
+            if y == 0:
+                y = y - 1
+            steps_x[i] = x
+            steps_y[i] = y
+            Posx = Posx + d * steps_x[i]
+            Posy = Posy + d * steps_y[i]
+        Posx_list.append(Posx)
+        Posy_list.append(Posy)
+        j = j + 1
+    return (Posx_list, Posy_list)
+
+W2 = Walk_2D(1000)
+x = W2[0]
+y = W2[1]
+
+#Plotting 2_D Random Walk
+figure()
+plt.scatter(x, y)
+xlabel('Distance Walked in the x ')
+ylabel('Distance Walked in the y')
+title('Distribution of 20 Step Random  2-D Walk')
+show()
+
+#Used tutoring and referenced Oni and Sam 
